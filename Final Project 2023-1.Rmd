@@ -92,8 +92,10 @@ Create a parallel plot as given in the project instruction.
 Hint: you can use ggplot, GGally, and ggrepel packages 
 
 ```{r, warning=FALSE}
-
-
+ggparcoord(data=regions,
+           columns=8:19,
+           groupColumn="region") +
+  theme(axis.text.x=element_text(angle=90))
 ```
 
 #### Problem 3 (Part2)
