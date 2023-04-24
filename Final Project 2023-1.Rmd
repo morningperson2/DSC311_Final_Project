@@ -113,6 +113,9 @@ Use appropriate markers in the leaflet package to visualize the above identified
 
 ```{r}
 
+n3<-leaflet(regions[1:10,]) %>% addTiles() %>% addMarkers(~long, ~lat,  label = ~region)
+
+n3
 
 ```
 
