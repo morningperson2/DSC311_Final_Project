@@ -46,9 +46,9 @@ Each group member should create one meaningful question and answer those questio
 ```
 
 
-##### Name of the group member who completed this task:..............
-What are the 5 descriptive statistics of the total deaths from covid?
+##### Name of the group member who completed this task: Justin Bennet
 
+What are the 5 descriptive statistics of the total deaths from covid?
 ```{r}
 
 boxplot(regions$deaths,
@@ -64,7 +64,8 @@ notch = TRUE
 ```
 
 
-##### Name of the group member who completed this task:..............
+##### Name of the group member who completed this task: Christian Lane
+
 
 ```{r}
 
@@ -92,8 +93,10 @@ Create a parallel plot as given in the project instruction.
 Hint: you can use ggplot, GGally, and ggrepel packages 
 
 ```{r, warning=FALSE}
-
-
+ggparcoord(data=regions,
+           columns=8:19,
+           groupColumn="region") +
+  theme(axis.text.x=element_text(angle=90))
 ```
 
 #### Problem 3 (Part2)
@@ -102,6 +105,13 @@ Using above plot identify any regions(four regions) which shows deviation from t
 
 
 ```{r}
+
+# for some reason it would not allow a collection of length 4, I had to separate like this
+
+newRegions = regions %>% filter(`region` == c("Piemonte", "Lombardia"))
+newRegions2 = regions %>% filter(`region` == c("Veneto", "Emilia-Romagna"))
+
+newRegions = bind_rows(newRegions, newRegions2)
 
 ```
 
@@ -113,7 +123,7 @@ Use appropriate markers in the leaflet package to visualize the above identified
 
 ```{r}
 
-n3<-leaflet(regions[1:10,]) %>% addTiles() %>% addMarkers(~long, ~lat,  label = ~region)
+n3<-leaflet(newRegions) %>% addTiles() %>% addMarkers(~long, ~lat,  label = ~region)
 
 n3
 
