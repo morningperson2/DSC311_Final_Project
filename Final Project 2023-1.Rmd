@@ -126,10 +126,7 @@ Using mutate function in tidyverse create new data column as  $\mbox{death_per=(
 
 ```{r}
 
-regions_death_per<-mutate(regions, death_per=(deaths/total_cases)*100)
-
-summary(regions_death_per)
-
+regions<-mutate(regions, death_per=(deaths/total_cases)*100)
 
 ```
 
@@ -159,6 +156,22 @@ regions$name_1<-name_1
 
 
 ```{r, warning=FALSE, message=FALSE}
+
+paletteNum <- colorNumeric('Blues', domain = Italy_regions$death_per)
+
+leaflet() %>%
+  addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
+  addPolygons(data = Italy_regions,
+              fillColor = ~paletteNum(death_per),
+              fillOpacity = 0.7,
+              smoothFactor = .3,
+              color = "#BDBDC3",
+              weight = 1) %>%
+  addLegend(pal = paletteNum,
+            values = Italy_regions$death_per,
+            title = "2020 Percentage  of Deaths<br> by Region in Italy (Covid-19)",
+            opacity = 0.7,
+            position = 'bottomleft')
 
 ```
 
