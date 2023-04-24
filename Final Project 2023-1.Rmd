@@ -95,7 +95,8 @@ Hint: you can use ggplot, GGally, and ggrepel packages
 ggparcoord(data=regions,
            columns=8:19,
            groupColumn="region") +
-  theme(axis.text.x=element_text(angle=90))
+  theme(axis.text.x=element_text(angle=90),axis.text = element_text(size = 8)) +
+  geom_point(size=NA)+geom_text_repel(aes(label=`...1`))
 ```
 
 #### Problem 3 (Part2)
