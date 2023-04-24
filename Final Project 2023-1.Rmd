@@ -1,0 +1,150 @@
+---
+title: "Final Project 2023"
+output: html_document
+date: "2023-04-23"
+---
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+library(knitr)
+library(readxl)# use to import .xlsx files
+library(ggplot2)
+library(ggrepel)
+library(GGally)
+library(leaflet)
+library(sf)
+library(RColorBrewer)
+```
+
+
+#### Load the dataset, covid-regions.csv dataset.
+
+```{r warning=FALSE, message=FALSE}
+
+regions<-read_csv("./covid-regions.csv") 
+
+head(regions)
+
+```
+
+
+#### Problem 1
+
+Each group member should create one meaningful question and answer those questions using any descriptive data analysis methods.(Ex:If your group has 4 members, you should have 4 questions)
+
+##### Name of the group member who completed this task:..............
+
+```{r}
+
+```
+
+
+##### Name of the group member who completed this task:..............
+
+```{r}
+
+```
+
+
+##### Name of the group member who completed this task:..............
+
+```{r}
+
+```
+
+
+##### Name of the group member who completed this task:..............
+
+```{r}
+
+```
+
+#### Problem 2
+
+Use "Circles" option in leaflet package to visualize the Total number of cases. Label the circles by region (Check Module 10 geospatial data visualization)
+
+```{r,warning=FALSE, message=FALSE}
+
+
+```
+
+
+
+#### Problem 3 (Part1) 
+
+Create a parallel plot as given in the project instruction.
+
+Hint: you can use ggplot, GGally, and ggrepel packages 
+
+```{r, warning=FALSE}
+
+
+```
+
+#### Problem 3 (Part2)
+
+Using above plot identify any regions(four regions) which shows deviation from the rest of the regions. Extract the information about those regions. (create a new dataframe, you will use it in next question)
+
+
+```{r}
+
+```
+
+
+#### Problem 3 (Part3)
+
+Use appropriate markers in the leaflet package to visualize the above identified regions on a map. Label the markers with the region name.
+
+
+```{r}
+
+
+```
+
+
+#### Problem 4(Part1)
+
+Using mutate function in tidyverse create new data column as  $\mbox{death_per=(deaths/total_cases)*100}$ for each region and call it as "death_per". Add death_per data to the regions dataset. Use mutate function in tidyverse.
+
+```{r}
+
+```
+
+
+#### Problem 4 (Part2)
+
+In this problem, your goal is to create a Choropleth map to visualize the Death Percentage for each region. The first steps of the data processing is given. Use the Italy_regions dataframe and complete the code. 
+
+Hint: Module 10 geospatial visualization
+
+```{r, warning=FALSE, message=FALSE}
+
+Italy_regions <- read_sf('shapefile')
+
+name_1=regions$region
+regions$name_1<-name_1
+
+ 
+ # combining data and shapfile 
+ is.element(regions$name_1, Italy_regions$name_1) %>%
+  all()
+
+ Italy_regions <- merge(Italy_regions, regions, by = 'name_1', all.x = F)
+ head(Italy_regions)
+ 
+```
+
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+
+
+
+
+
+
+
+
+
