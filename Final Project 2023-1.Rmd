@@ -115,6 +115,9 @@ Use appropriate markers in the leaflet package to visualize the above identified
 
 ```{r}
 
+n3<-leaflet(regions[1:10,]) %>% addTiles() %>% addMarkers(~long, ~lat,  label = ~region)
+
+n3
 
 ```
 
@@ -124,6 +127,11 @@ Use appropriate markers in the leaflet package to visualize the above identified
 Using mutate function in tidyverse create new data column as  $\mbox{death_per=(deaths/total_cases)*100}$ for each region and call it as "death_per". Add death_per data to the regions dataset. Use mutate function in tidyverse.
 
 ```{r}
+
+regions_death_per<-mutate(regions, death_per=(deaths/total_cases)*100)
+
+summary(regions_death_per)
+
 
 ```
 
