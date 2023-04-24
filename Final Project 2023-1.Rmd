@@ -93,8 +93,10 @@ Create a parallel plot as given in the project instruction.
 Hint: you can use ggplot, GGally, and ggrepel packages 
 
 ```{r, warning=FALSE}
-
-
+ggparcoord(data=regions,
+           columns=8:19,
+           groupColumn="region") +
+  theme(axis.text.x=element_text(angle=90))
 ```
 
 #### Problem 3 (Part2)
@@ -133,6 +135,11 @@ n3
 Using mutate function in tidyverse create new data column as  $\mbox{death_per=(deaths/total_cases)*100}$ for each region and call it as "death_per". Add death_per data to the regions dataset. Use mutate function in tidyverse.
 
 ```{r}
+
+regions_death_per<-mutate(regions, death_per=(deaths/total_cases)*100)
+
+summary(regions_death_per)
+
 
 ```
 
