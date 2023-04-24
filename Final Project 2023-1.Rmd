@@ -126,6 +126,11 @@ Using mutate function in tidyverse create new data column as  $\mbox{death_per=(
 
 ```{r}
 
+regions_death_per<-mutate(regions, death_per=(deaths/total_cases)*100)
+
+summary(regions_death_per)
+
+
 ```
 
 
