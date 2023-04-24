@@ -47,8 +47,19 @@ Each group member should create one meaningful question and answer those questio
 
 
 ##### Name of the group member who completed this task:..............
+What are the 5 descriptive statistics of the total deaths from covid?
 
 ```{r}
+
+boxplot(regions$deaths,
+main = "Mean Deaths for Covid in Italy",
+xlab = "Total Deaths",
+ylab = "Death Count",
+col = "orange",
+border = "brown",
+horizontal = TRUE,
+notch = TRUE
+)
 
 ```
 
@@ -65,6 +76,10 @@ Use "Circles" option in leaflet package to visualize the Total number of cases. 
 
 ```{r,warning=FALSE, message=FALSE}
 
+n2<-leaflet(regions) %>% addTiles() %>% addCircles(lng = ~long, lat = ~lat, weight = 1,
+    radius = ~total_cases, popup = ~region)
+
+n2
 
 ```
 
