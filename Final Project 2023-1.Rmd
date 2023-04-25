@@ -104,12 +104,12 @@ ggparcoord(data=regions,
 Using above plot identify any regions(four regions) which shows deviation from the rest of the regions. Extract the information about those regions. (create a new dataframe, you will use it in next question)
 
 
-```{r}
+```{r warning=FALSE}
 
 # for some reason it would not allow a collection of length 4, I had to separate like this
 
 newRegions = regions %>% filter(`region` == c("Piemonte", "Lombardia"))
-newRegions2 = regions %>% filter(`region` == c("Veneto", "Emilia-Romagna"))
+newRegions2 = regions %>% filter(`region` == c( "Veneto", "Emilia-Romagna"))
 
 newRegions = bind_rows(newRegions, newRegions2)
 
@@ -139,7 +139,6 @@ Using mutate function in tidyverse create new data column as  $\mbox{death_per=(
 regions_death_per<-mutate(regions, death_per=(deaths/total_cases)*100)
 
 summary(regions_death_per)
-
 
 ```
 
