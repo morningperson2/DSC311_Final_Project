@@ -39,7 +39,7 @@ Each group member should create one meaningful question and answer those questio
 ```
 
 
-##### Name of the group member who completed this task:..............
+##### Name of the group member who completed this task: Paul Huffman
 
 ```{r}
 
