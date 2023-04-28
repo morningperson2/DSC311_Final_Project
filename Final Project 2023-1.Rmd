@@ -14,6 +14,7 @@ library(GGally)
 library(leaflet)
 library(sf)
 library(RColorBrewer)
+library(reshape2)
 ```
 
 
@@ -32,9 +33,26 @@ head(regions)
 
 Each group member should create one meaningful question and answer those questions using any descriptive data analysis methods.(Ex:If your group has 4 members, you should have 4 questions)
 
-##### Name of the group member who completed this task:..............
+##### Name of the group member who completed this task: Paul Huffman
 
+What is the relation between age, gender, and deaths?
 ```{r}
+
+# Read the csv file
+covid_data <- read.csv("covid-age.csv")
+
+covid_melt <- melt(covid_data, id.vars = c("age_classes"), 
+                   measure.vars = c("male_deaths", "female_deaths"), 
+                   variable.name = "gender", 
+                   value.name = "deaths")
+
+ggplot(covid_melt, aes(x = age_classes, y = deaths, fill = gender)) + 
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Relation between Gender, Age and Deaths",
+       x = "Age Classes", y = "Number of Deaths") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), legend.position = "top")
+
 
 ```
 
