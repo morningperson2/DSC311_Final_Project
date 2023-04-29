@@ -14,6 +14,7 @@ library(GGally)
 library(leaflet)
 library(sf)
 library(RColorBrewer)
+library(reshape2)
 ```
 
 
@@ -32,14 +33,31 @@ head(regions)
 
 Each group member should create one meaningful question and answer those questions using any descriptive data analysis methods.(Ex:If your group has 4 members, you should have 4 questions)
 
-##### Name of the group member who completed this task:..............
+##### Name of the group member who completed this task: Paul Huffman
 
+What is the relation between age, gender, and deaths?
 ```{r}
+
+# Read the csv file
+covid_data <- read.csv("covid-age.csv")
+
+covid_melt <- melt(covid_data, id.vars = c("age_classes"), 
+                   measure.vars = c("male_deaths", "female_deaths"), 
+                   variable.name = "gender", 
+                   value.name = "deaths")
+
+ggplot(covid_melt, aes(x = age_classes, y = deaths, fill = gender)) + 
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Relation between Gender, Age and Deaths",
+       x = "Age Classes", y = "Number of Deaths") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), legend.position = "top")
+
 
 ```
 
 
-##### Name of the group member who completed this task:..............
+##### Name of the group member who completed this task: Ryan Heiert
 
 ```{r}
 
@@ -137,9 +155,13 @@ Using mutate function in tidyverse create new data column as  $\mbox{death_per=(
 
 ```{r}
 
+
 regions_death_per<-mutate(regions, death_per=(deaths/total_cases)*100)
 
 summary(regions_death_per)
+
+regions<-mutate(regions, death_per=(deaths/total_cases)*100)
+
 
 ```
 
@@ -169,6 +191,22 @@ regions$name_1<-name_1
 
 
 ```{r, warning=FALSE, message=FALSE}
+
+paletteNum <- colorNumeric('Blues', domain = Italy_regions$death_per)
+
+leaflet() %>%
+  addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
+  addPolygons(data = Italy_regions,
+              fillColor = ~paletteNum(death_per),
+              fillOpacity = 0.7,
+              smoothFactor = .3,
+              color = "#BDBDC3",
+              weight = 1) %>%
+  addLegend(pal = paletteNum,
+            values = Italy_regions$death_per,
+            title = "2020 Percentage  of Deaths<br> by Region in Italy (Covid-19)",
+            opacity = 0.7,
+            position = 'bottomleft')
 
 ```
 
