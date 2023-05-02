@@ -33,6 +33,8 @@ head(regions)
 
 Each group member should create one meaningful question and answer those questions using any descriptive data analysis methods.(Ex:If your group has 4 members, you should have 4 questions)
 
+---
+
 ##### Name of the group member who completed this task: Paul Huffman
 
 What is the relation between age, gender, and deaths?
@@ -49,13 +51,16 @@ covid_melt <- melt(covid_data, id.vars = c("age_classes"),
 ggplot(covid_melt, aes(x = age_classes, y = deaths, fill = gender)) + 
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Relation between Gender, Age and Deaths",
-       x = "Age Classes", y = "Number of Deaths") +
+       x = "Age Classes", y = "Number of Deaths", fill = "Gender") +
   theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5), legend.position = "top")
+  theme(plot.title = element_text(hjust = 0.5), legend.position = "top") + scale_fill_discrete(labels=c("Male Deaths", "Female Deaths"))
 
 
 ```
 
+From the above graph it is clear that as age increases so does the number of deaths. It also looks like men are more likely to die from covid as women. The only place where that is not true is in the >90 age group, but I think that is because there are so few people in that age group that it is not a good representation of the population. Also there are more deaths for women than men in that same group, but that is because there are significantly more women who live past 90 than men. Acording to [census.gov](https://www.census.gov/newsroom/releases/archives/aging_population/cb11-194.html) women over 90 outnumber men over 90 at a rate of about 3 to 1.
+
+---
 
 ##### Name of the group member who completed this task: Ryan Heiert
 
@@ -63,6 +68,7 @@ ggplot(covid_melt, aes(x = age_classes, y = deaths, fill = gender)) +
 
 ```
 
+---
 
 ##### Name of the group member who completed this task: Justin Bennet
 
@@ -81,6 +87,7 @@ notch = TRUE
 
 ```
 
+---
 
 ##### Name of the group member who completed this task: Christian Lane
 
@@ -88,6 +95,8 @@ notch = TRUE
 ```{r}
 
 ```
+
+---
 
 #### Problem 2
 
