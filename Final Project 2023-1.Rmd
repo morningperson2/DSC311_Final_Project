@@ -17,7 +17,6 @@ library(RColorBrewer)
 library(reshape2)
 ```
 
-
 #### Load the dataset, covid-regions.csv dataset.
 
 ```{r warning=FALSE, message=FALSE}
@@ -28,16 +27,16 @@ head(regions)
 
 ```
 
-
 #### Problem 1
 
 Each group member should create one meaningful question and answer those questions using any descriptive data analysis methods.(Ex:If your group has 4 members, you should have 4 questions)
 
----
+------------------------------------------------------------------------
 
 ##### Name of the group member who completed this task: Paul Huffman
 
 What is the relation between age, gender, and deaths?
+
 ```{r}
 
 # Read the csv file
@@ -58,9 +57,9 @@ ggplot(covid_melt, aes(x = age_classes, y = deaths, fill = gender)) +
 
 ```
 
-From the above graph it is clear that as age increases so does the number of deaths. It also looks like men are more likely to die from covid as women. The only place where that is not true is in the >90 age group, but I think that is because there are so few people in that age group that it is not a good representation of the population. Also there are more deaths for women than men in that same group, but that is because there are significantly more women who live past 90 than men. Acording to [census.gov](https://www.census.gov/newsroom/releases/archives/aging_population/cb11-194.html) women over 90 outnumber men over 90 at a rate of about 3 to 1.
+From the above graph it is clear that as age increases so does the number of deaths. It also looks like men are more likely to die from covid as women. The only place where that is not true is in the \>90 age group, but I think that is because there are so few people in that age group that it is not a good representation of the population. Also there are more deaths for women than men in that same group, but that is because there are significantly more women who live past 90 than men. Acording to [census.gov](https://www.census.gov/newsroom/releases/archives/aging_population/cb11-194.html) women over 90 outnumber men over 90 at a rate of about 3 to 1.
 
----
+------------------------------------------------------------------------
 
 ##### Name of the group member who completed this task: Ryan Heiert
 
@@ -68,11 +67,12 @@ From the above graph it is clear that as age increases so does the number of dea
 
 ```
 
----
+------------------------------------------------------------------------
 
 ##### Name of the group member who completed this task: Justin Bennet
 
 What are the 5 descriptive statistics of the total deaths from covid?
+
 ```{r}
 
 boxplot(regions$deaths,
@@ -87,16 +87,29 @@ notch = TRUE
 
 ```
 
----
+------------------------------------------------------------------------
 
 ##### Name of the group member who completed this task: Christian Lane
 
+What is the relationship between total swabs made, and total confirmed cases? Can you visualize that information on a map?
+
+#### Confirmed Cases as % of Total Swabs Made by Region
 
 ```{r}
+# Create two new columns representing the percentage of total confirmed cases out of total cases
+# and the percentage of total confirmed cases out of total swabs made
+regions = regions %>% 
+  mutate(confirmed_percent_of_swabs = total_confirmed_cases / swabs_made * 100)
 
+
+
+leaflet(regions) %>% addTiles() %>% addCircles(lng = ~long, lat = ~lat, weight = 1,
+                                               radius = ~confirmed_percent_of_swabs * 9000)
 ```
 
----
+The radii of the circles on the map correspond to the percentage of swabs that turned into confirmed cases. We can see that around the cities of Milano and Torino, the percentage of swabs that turned into confirmed cases is relatively higher. In the nortwestern region of Italy in general, a higher percentage of test swabs are turning into confirmed cases than in the other regions of Italy. The northeastern region of Italy seems to have the lowest percentage conversion, though.
+
+------------------------------------------------------------------------
 
 #### Problem 2
 
@@ -111,13 +124,11 @@ n2
 
 ```
 
-
-
-#### Problem 3 (Part1) 
+#### Problem 3 (Part1)
 
 Create a parallel plot as given in the project instruction.
 
-Hint: you can use ggplot, GGally, and ggrepel packages 
+Hint: you can use ggplot, GGally, and ggrepel packages
 
 ```{r, warning=FALSE}
 ggparcoord(data=regions,
@@ -131,7 +142,6 @@ ggparcoord(data=regions,
 
 Using above plot identify any regions(four regions) which shows deviation from the rest of the regions. Extract the information about those regions. (create a new dataframe, you will use it in next question)
 
-
 ```{r warning=FALSE}
 
 # for some reason it would not allow a collection of length 4, I had to separate like this
@@ -143,11 +153,9 @@ newRegions = bind_rows(newRegions, newRegions2)
 
 ```
 
-
 #### Problem 3 (Part3)
 
 Use appropriate markers in the leaflet package to visualize the above identified regions on a map. Label the markers with the region name.
-
 
 ```{r}
 
@@ -157,10 +165,9 @@ n3
 
 ```
 
-
 #### Problem 4(Part1)
 
-Using mutate function in tidyverse create new data column as  $\mbox{death_per=(deaths/total_cases)*100}$ for each region and call it as "death_per". Add death_per data to the regions dataset. Use mutate function in tidyverse.
+Using mutate function in tidyverse create new data column as $\mbox{death_per=(deaths/total_cases)*100}$ for each region and call it as "death_per". Add death_per data to the regions dataset. Use mutate function in tidyverse.
 
 ```{r}
 
@@ -174,10 +181,9 @@ regions<-mutate(regions, death_per=(deaths/total_cases)*100)
 
 ```
 
-
 #### Problem 4 (Part2)
 
-In this problem, your goal is to create a Choropleth map to visualize the Death Percentage for each region. The first steps of the data processing is given. Use the Italy_regions dataframe and complete the code. 
+In this problem, your goal is to create a Choropleth map to visualize the Death Percentage for each region. The first steps of the data processing is given. Use the Italy_regions dataframe and complete the code.
 
 Hint: Module 10 geospatial visualization
 
@@ -198,7 +204,6 @@ regions$name_1<-name_1
  
 ```
 
-
 ```{r, warning=FALSE, message=FALSE}
 
 paletteNum <- colorNumeric('Blues', domain = Italy_regions$death_per)
@@ -218,13 +223,3 @@ leaflet() %>%
             position = 'bottomleft')
 
 ```
-
-
-
-
-
-
-
-
-
-
