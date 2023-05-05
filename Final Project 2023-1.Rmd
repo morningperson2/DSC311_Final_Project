@@ -63,10 +63,18 @@ From the above graph it is clear that as age increases so does the number of dea
 
 ##### Name of the group member who completed this task: Ryan Heiert
 
-```{r}
+How are gender groups affected differently by each disease?
 
+```{r}
+disease <- read.csv("covid-disease.csv")
+
+ggparcoord(data=disease,
+           columns=3:5,
+           groupColumn="Disease") +
+  theme(axis.text.x=element_text(angle=90),axis.text = element_text(size = 8))
 ```
 
+The parallel plot shows that within this dataset, men and women seem to be affected roughly the same by each disease. However, certain diseases show to affect one group more than the other. For example, Ischemic Heart Disease is much more common in women than it is in men. Alternatively, we see that men are much more commonly affected by heart failure.
 ------------------------------------------------------------------------
 
 ##### Name of the group member who completed this task: Justin Bennet
